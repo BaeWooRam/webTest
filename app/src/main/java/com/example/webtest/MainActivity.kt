@@ -18,15 +18,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val webViewSetting =wv.settings
+        val webViewSetting = wv.settings
         webViewSetting.javaScriptEnabled = true
         webViewSetting.domStorageEnabled = true
+
+        val userAgent = webViewSetting.userAgentString;
+        webViewSetting.userAgentString = "$userAgent APP_TEST";
+
 
         wv.webChromeClient = WebChromeClient()
         wv.webViewClient = WebViewClientClass()
         wv.addJavascriptInterface(AndroidBridge(), "app")
         wv.setNetworkAvailable(true)
-        wv.loadUrl("https://jerryjerryjerry.tistory.com")
+        wv.loadUrl("file:///android_asset/test_map.html")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -58,16 +62,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private class AndroidBridge {
-        val handler = Handler()
 
         @JavascriptInterface
-        fun setMessage(arg:String) {
-            handler.post(object :Runnable{
-                override fun run() {
-                    Log.i(javaClass.simpleName, "WebView Message : $arg")
-                }
-            })
-    }
+        fun setMessage(arg: String) {
+            Log.i(javaClass.simpleName, "WebView Message : $arg")
+        }
     }
 
 
