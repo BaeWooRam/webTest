@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         wv.webViewClient = WebViewClientClass()
         wv.addJavascriptInterface(AndroidBridge(), "app")
         wv.setNetworkAvailable(true)
-        wv.loadUrl("file:///android_asset/test_map.html")
+        wv.loadUrl("http://192.168.56.1/#/")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
